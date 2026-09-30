@@ -15,7 +15,7 @@ repositories {
 }
 
 jvmdg {
-	downgradeTo = JavaVersion.VERSION_1_8
+	downgradeTo = JavaVersion.VERSION_16
 }
 
 loom {
@@ -63,7 +63,12 @@ tasks.named<Jar>("sourcesJar") {
 tasks.downgradeJar {
 	filesMatching("flposn.mixins.json") {
 		filter {
-			it.replace("JAVA_25", "JAVA_8")
+			it.replace("JAVA_25", "JAVA_16")
+		}
+	}
+	filesMatching("flposn.client.mixins.json") {
+		filter {
+			it.replace("JAVA_25", "JAVA_16")
 		}
 	}
 }

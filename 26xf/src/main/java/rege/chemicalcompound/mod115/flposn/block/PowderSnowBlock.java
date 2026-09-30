@@ -82,7 +82,7 @@ public class PowderSnowBlock extends FluidBlock {
             return empty();
         }
         ItemStack stack = ((LivingEntity)entity).getMainHandStack();
-        if (stack == null || (!stack.is(Items.BUCKET) && !stack.is(this.fluid.getBucketItem()))) {
+        if (stack == null || stack.isEmpty() || !stack.is(this.fluid.getBucketItem())) {
             return empty();
         }
         final int L = state.get(LEVEL).intValue();

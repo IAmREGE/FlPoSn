@@ -3,6 +3,7 @@
 	"package": "rege.chemicalcompound.mod115.flposn.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
+		"AbstractBlockStateMixin",
 		"BlocksMixin",
 		"BucketItemMixin",
 		"ItemsMixin"

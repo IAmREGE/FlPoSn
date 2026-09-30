@@ -3,7 +3,8 @@
 	"package": "rege.chemicalcompound.mod115.flposn.client.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
-		"CameraMixin"
+		"CameraMixin",
+		"ClientWorldMixin"
 	],
 	"injectors": {"defaultRequire": 1}
 }
