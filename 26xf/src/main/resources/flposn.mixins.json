@@ -1,0 +1,11 @@
+{
+	"required": true,
+	"package": "rege.chemicalcompound.mod115.flposn.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"mixins": [
+		"BlocksMixin",
+		"BucketItemMixin",
+		"ItemsMixin"
+	],
+	"injectors": {"defaultRequire": 1}
+}
