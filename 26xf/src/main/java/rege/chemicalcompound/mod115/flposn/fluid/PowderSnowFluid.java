@@ -20,7 +20,9 @@ import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -43,6 +45,9 @@ import static net.minecraft.block.Blocks.AIR;
 import static net.minecraft.block.Blocks.POWDER_SNOW;
 
 public abstract class PowderSnowFluid extends FlowableFluid {
+    public static final TagKey<Fluid> FLOW_LIKE_WATER = TagKey.of(RegistryKeys.FLUID, Identifier.of("flposn", "flow_like_water"));
+    public static final TagKey<Fluid> IS_INFINITE = TagKey.of(RegistryKeys.FLUID, Identifier.of("flposn", "is_infinite"));
+
     @Override
     public Fluid getFlowing() {
         return Flowing.FLOWING_POWDER_SNOW;
@@ -65,7 +70,7 @@ public abstract class PowderSnowFluid extends FlowableFluid {
 
     @Override
     protected boolean isInfinite(final ServerWorld world) {
-        return false;
+        return Registries.FLUID.getEntry(this.getStill()).isIn(IS_INFINITE);
     }
 
     @Override
@@ -76,7 +81,7 @@ public abstract class PowderSnowFluid extends FlowableFluid {
 
     @Override
     protected int getMaxFlowDistance(WorldView world) {
-        return 1;
+        return Registries.FLUID.getEntry(this.getStill()).isIn(FLOW_LIKE_WATER) ? 4 : 1;
     }
 
     @Override
@@ -96,12 +101,12 @@ public abstract class PowderSnowFluid extends FlowableFluid {
 
     @Override
     protected int getLevelDecreasePerBlock(WorldView world) {
-        return 8;
+        return Registries.FLUID.getEntry(this.getStill()).isIn(FLOW_LIKE_WATER) ? 1 : 8;
     }
 
     @Override
     public int getTickRate(WorldView world) {
-        return Integer.MAX_VALUE;
+        return Registries.FLUID.getEntry(this.getStill()).isIn(FLOW_LIKE_WATER) ? 100 : Integer.MAX_VALUE;
     }
 
     @Override

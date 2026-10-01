@@ -2,6 +2,7 @@ package rege.chemicalcompound.mod115.flposn.block;
 
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.EntityShapeContext;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.block.ShapeContext;
@@ -9,6 +10,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.FallingBlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.pathing.NavigationType;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
@@ -28,14 +30,14 @@ import static net.minecraft.util.shape.VoxelShapes.empty;
 
 public class PowderSnowBlock extends FluidBlock {
     private static final VoxelShape[] FALLING_SHAPES = new VoxelShape[]{
-        cuboid(0., 0., 0., 1., 0.025, 1.),
-        cuboid(0., 0., 0., 1., 0.15, 1.),
-        cuboid(0., 0., 0., 1., 0.275, 1.),
-        cuboid(0., 0., 0., 1., 0.4, 1.),
-        cuboid(0., 0., 0., 1., 0.525, 1.),
-        cuboid(0., 0., 0., 1., 0.65, 1.),
-        cuboid(0., 0., 0., 1., 0.775, 1.),
-        cuboid(0., 0., 0., 1., 0.9, 1.)
+        cuboid(0., 0., 0., 1., 0.025f, 1.),
+        cuboid(0., 0., 0., 1., 0.15f, 1.),
+        cuboid(0., 0., 0., 1., 0.275f, 1.),
+        cuboid(0., 0., 0., 1., 0.4f, 1.),
+        cuboid(0., 0., 0., 1., 0.525f, 1.),
+        cuboid(0., 0., 0., 1., 0.65f, 1.),
+        cuboid(0., 0., 0., 1., 0.775f, 1.),
+        cuboid(0., 0., 0., 1., 0.9f, 1.)
     };
     private static final VoxelShape[] FILLED_SHAPES = new VoxelShape[]{
         cuboid(0., 0., 0., 1., 0.125, 1.),
@@ -111,9 +113,10 @@ public class PowderSnowBlock extends FluidBlock {
                 final int L = state.get(LEVEL).intValue();
                 return FALLING_SHAPES[(L < 8) ? 7 - L : 7];
             }
-            if (entity instanceof FallingBlockEntity || canWalkOnPowderSnow(entity) && context.isAbove(this.getOutlineShape(state, level, pos, context), pos, false) && !context.isDescending()) {
-                final int L = state.get(LEVEL).intValue();
-                return FILLED_SHAPES[(L < 8) ? 7 - L : 7];
+            final int L = state.get(LEVEL).intValue();
+            VoxelShape shape = FILLED_SHAPES[(L < 8) ? 7 - L : 7];
+            if (entity instanceof FallingBlockEntity || canWalkOnPowderSnow(entity) && context.isAbove(shape, pos, false) && !context.isDescending()) {
+                return shape;
             }
         }
         return empty();
@@ -122,6 +125,18 @@ public class PowderSnowBlock extends FluidBlock {
     @Override
     protected VoxelShape getCameraCollisionShape(final BlockState state, final BlockView world, final BlockPos pos, final ShapeContext context) {
         return empty();
+    }
+
+    @Override
+    public BlockState onBreak(
+        final World world, final BlockPos pos, final BlockState state,
+        final PlayerEntity player
+    ) {
+        BlockState result = super.onBreak(world, pos, state, player);
+        if (player.shouldSkipBlockDrops()) {
+            world.setBlockState(pos, Blocks.AIR.getDefaultState());
+        }
+        return result;
     }
 
     @Override

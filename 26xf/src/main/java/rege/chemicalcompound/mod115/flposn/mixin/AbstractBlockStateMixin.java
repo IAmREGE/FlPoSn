@@ -26,4 +26,11 @@ public abstract class AbstractBlockStateMixin {
         BlockState blockState = fluidState.getBlockState();
         return blockState != (Object)this && fluidState.getFluid() instanceof PowderSnowFluid && context instanceof EntityShapeContext ? VoxelShapes.union(original, blockState.getOutlineShape(world, pos, context)) : original;
     }
+
+    @ModifyReturnValue(method = "getCollisionShape(Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/ShapeContext;)Lnet/minecraft/util/shape/VoxelShape;", at = @At("RETURN"))
+    private VoxelShape unionShape2(VoxelShape original, final BlockView world, final BlockPos pos, final ShapeContext context) {
+        FluidState fluidState = this.getFluidState();
+        BlockState blockState = fluidState.getBlockState();
+        return blockState != (Object)this && fluidState.getFluid() instanceof PowderSnowFluid && context instanceof EntityShapeContext ? VoxelShapes.union(original, blockState.getCollisionShape(world, pos, context)) : original;
+    }
 }
