@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "level=0": {"model": "minecraft:block/powder_snow"},
+    "level=1": {"model": "minecraft:block/powder_snow_level7"},
+    "level=2": {"model": "minecraft:block/powder_snow_level6"},
+    "level=3": {"model": "minecraft:block/powder_snow_level5"},
+    "level=4": {"model": "minecraft:block/powder_snow_level4"},
+    "level=5": {"model": "minecraft:block/powder_snow_level3"},
+    "level=6": {"model": "minecraft:block/powder_snow_level2"},
+    "level=7": {"model": "minecraft:block/powder_snow_level1"},
+    "level=8": {"model": "minecraft:block/powder_snow"},
+    "level=9": {"model": "minecraft:block/powder_snow"},
+    "level=10": {"model": "minecraft:block/powder_snow"},
+    "level=11": {"model": "minecraft:block/powder_snow"},
+    "level=12": {"model": "minecraft:block/powder_snow"},
+    "level=13": {"model": "minecraft:block/powder_snow"},
+    "level=14": {"model": "minecraft:block/powder_snow"},
+    "level=15": {"model": "minecraft:block/powder_snow"}
+  }
+}

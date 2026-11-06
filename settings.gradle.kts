@@ -8,7 +8,7 @@ pluginManagement {
 	}
 }
 
-//include("pre26f")
+include("1_20_4f")
 include("26xf")
 //include("1_20_4m")
 //include("26xm")

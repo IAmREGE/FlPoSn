@@ -128,10 +128,7 @@ public class PowderSnowBlock extends FluidBlock {
     }
 
     @Override
-    public BlockState onBreak(
-        final World world, final BlockPos pos, final BlockState state,
-        final PlayerEntity player
-    ) {
+    public BlockState onBreak(final World world, final BlockPos pos, final BlockState state, final PlayerEntity player) {
         BlockState result = super.onBreak(world, pos, state, player);
         if (player.shouldSkipBlockDrops()) {
             world.setBlockState(pos, Blocks.AIR.getDefaultState());

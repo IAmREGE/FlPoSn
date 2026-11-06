@@ -22,10 +22,7 @@ public abstract class CameraMixin {
     @Shadow
     private Vec3d pos;
 
-    @WrapOperation(method = "getSubmersionType", at = @At(
-        value = "INVOKE", ordinal = 0,
-        target = "Lnet/minecraft/block/BlockState;is(Ljava/lang/Object;)Z"
-    ))
+    @WrapOperation(method = "getSubmersionType", at = @At(value = "INVOKE", ordinal = 0, target = "Lnet/minecraft/block/BlockState;is(Ljava/lang/Object;)Z"))
     private boolean injected(BlockState instance, Object value, Operation<Boolean> original) {
         if (value != Blocks.POWDER_SNOW) {
             return original.call(instance, value);
