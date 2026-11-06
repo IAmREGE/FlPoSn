@@ -20,7 +20,6 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager.Builder;
@@ -111,13 +110,11 @@ public abstract class PowderSnowFluid extends FlowableFluid {
 
     public static void onEntityCollision(final World world, final BlockPos pos, final Entity entity) {
         entity.slowMovement(world.getBlockState(pos), new Vec3d(0.9, 1.5, 0.9));
-        if (world instanceof ServerWorld) {
-            if (world.isClient) {
-                Random random = world.getRandom();
-                boolean bl = entity.lastRenderX != entity.getX() || entity.lastRenderZ != entity.getZ();
-                if (bl && random.nextBoolean()) {
-                    world.addParticle(ParticleTypes.SNOWFLAKE, entity.getX(), pos.getY() + 1, entity.getZ(), MathHelper.nextBetween(random, -1f, 1f) * 0.083333336f, 0.05f, MathHelper.nextBetween(random, -1f, 1f) * 0.083333336f);
-                }
+        if (world.isClient) {
+            Random random = world.getRandom();
+            boolean bl = entity.lastRenderX != entity.getX() || entity.lastRenderZ != entity.getZ();
+            if (bl && random.nextBoolean()) {
+                world.addParticle(ParticleTypes.SNOWFLAKE, entity.getX(), pos.getY() + 1, entity.getZ(), MathHelper.nextBetween(random, -1f, 1f) * 0.083333336f, 0.05f, MathHelper.nextBetween(random, -1f, 1f) * 0.083333336f);
             }
         }
         entity.setInPowderSnow(true);

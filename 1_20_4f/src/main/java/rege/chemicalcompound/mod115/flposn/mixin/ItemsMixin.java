@@ -1,7 +1,5 @@
 package rege.chemicalcompound.mod115.flposn.mixin;
 
-import java.util.function.Function;
-
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
