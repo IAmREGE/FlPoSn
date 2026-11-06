@@ -8,7 +8,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.util.function.BooleanBiFunction;
@@ -34,7 +33,7 @@ public abstract class EntityMixin {
         FluidState fluidState = blockState.getFluidState();
         if (fluidState.getFluid() instanceof PowderSnowFluid) {
             Entity THIS = (Entity)(Object)this;
-            if (VoxelShapes.matchesAnywhere(fluidState.getBlockState().getOutlineShape(this.getWorld(), mutable, ShapeContext.of(THIS)).offset(mutable.getX(), mutable.getY(), mutable.getZ()), VoxelShapes.cuboid(this.getBoundingBox()), BooleanBiFunction.AND)) {
+            if (VoxelShapes.matchesAnywhere(VoxelShapes.cuboid(0, 0, 0, 1, fluidState.getHeight(this.getWorld(), mutable), 1).offset(mutable.getX(), mutable.getY(), mutable.getZ()), VoxelShapes.cuboid(this.getBoundingBox()), BooleanBiFunction.AND)) {
                 PowderSnowFluid.onEntityCollision(this.getWorld(), mutable, THIS);
             }
         }

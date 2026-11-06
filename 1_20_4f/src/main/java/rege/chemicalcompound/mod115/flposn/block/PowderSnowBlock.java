@@ -125,6 +125,12 @@ public class PowderSnowBlock extends FluidBlock {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
+    public VoxelShape getCameraCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return empty();
+    }
+
+    @Override
     public BlockState onBreak(
         final World world, final BlockPos pos, final BlockState state,
         final PlayerEntity player
